@@ -14,7 +14,14 @@
         <h1>Login Screen</h1>
         <div class="error-field" data-bind="text: errorMesg, visible: errorMesg() != null"></div>
         <div class="username-field">Player E-mail: <input data-bind="value: email" /></div>
-        <div class="password-field">Password: <input type="password" data-bind="value: password" /></div>
+        <div class="password-field">
+            Locker Combo:
+            <input type="password" data-bind="value: locker1" size="2" />
+            -
+            <input type="password" data-bind="value: locker2" size="2" />
+            -
+            <input type="password" data-bind="value: locker3" size="2" />
+        </div>
         <div class="league-field">League: <select data-bind="options: leagueArray, value: league"></select></div>
         <button data-bind="click: login">Enter the Arena</button>
     </div>

@@ -1,0 +1,400 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"locker",
+				"locker_combo"
+			],
+			[
+				"league",
+				"league_id"
+			],
+			[
+				"get",
+				"_GET"
+			],
+			[
+				"q",
+				"qry"
+			],
+			[
+				"data",
+				"data_created"
+			],
+			[
+				"date_crete",
+				"date_created"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 1529,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/**\n * Created with JetBrains PhpStorm.\n * User: christian.manalansan\n * Date: 9/26/13\n * Time: 1:40 AM\n * To change this template use File | Settings | File Templates.\n */\n\njQuery(document).ready(function() {\n    jQuery(function ($) {\n        function AuctionTeam(teamName, teamRecord, oppName, oppRecord, gameDay) {\n            var self = this;\n            self.teamName = ko.observable(teamName);\n            self.teamRecord = ko.observable(teamRecord);\n            self.oppName = ko.observable(oppName);\n            self.oppRecord = ko.observable(oppRecord);\n            self.gameDay = ko.observable(gameDay);\n\n            self.summary = ko.computed(function() {\n                return '(' + self.teamRecord() + ') ' + self.teamName() + ' ' + self.oppName() + ' (' + self.oppRecord() + ')';\n            });\n        }\n\n\n        function FootballViewModel() {\n            var self = this;\n            self.screen = ko.observable(1);\n            self.email = ko.observable();\n            self.password = ko.observable();\n            self.league = ko.observable();\n            self.gameData = ko.observable(null);\n            self.errorMesg = ko.observable(null);\n            self.auctionTeams = ko.observableArray();\n\n            self.leagueArray = ['Test1', 'Test2'];\n\n            // Operations\n            self.login = function() { // TODO: perform AJAX to actually authenticate\n                $.ajax('/api/login.php', {\n                    data: ko.toJSON({\n                        email: self.email,\n                        password: self.password,\n                        league: self.league\n                    }),\n                    type: \"post\", contentType: \"application/json\",\n                    success: function(result) {\n                        if (result.status == 'ok') {\n                            self.gameData(result.gameData);\n                            self.screen(self.gameData.screen);\n                        } else {\n                            self.errorMesg('Invalid password.');        \n                        }\n                        self.password(null);\n                    }\n                });\n\n                self.password(null);\n            }\n            self.confirmTeams = function() {\n                self.screen(3);\n            }\n        }\n\n        ko.applyBindings(new FootballViewModel());\n    });\n});\n\n",
+			"file": "js/viewModel.js",
+			"file_size": 2152,
+			"file_write_time": 1380429382000000,
+			"settings":
+			{
+				"buffer_size": 2351,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "api/create-user.php",
+			"settings":
+			{
+				"buffer_size": 1775,
+				"line_ending": "Unix",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "includes/db.inc",
+			"settings":
+			{
+				"buffer_size": 393,
+				"line_ending": "Unix",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "api/login.php",
+			"settings":
+			{
+				"buffer_size": 9,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 367.0,
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"remote",
+				"Git: Remote"
+			],
+			[
+				"remo",
+				"Git: Remote"
+			],
+			[
+				"git:rem",
+				"Git: Add Remote"
+			],
+			[
+				"git",
+				"Git: Checkout"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Administrator/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Applications/MAMP/logs/php_error.log",
+		"/Applications/MAMP/conf/apache/extra/httpd-vhosts.conf",
+		"/Applications/MAMP/htdocs/mm-football/info.php",
+		"/Applications/MAMP/bin/php/php5.5.3/conf/php.ini",
+		"/Applications/MAMP/conf/apache/httpd.conf",
+		"/Applications/MAMP/htdocs/mm-football/login.php",
+		"/Users/Administrator/Library/Application Support/Sublime Text 2/Packages/User/SublimeGit.sublime-settings",
+		"/Users/Administrator/Library/Application Support/Sublime Text 2/Packages/SublimeGit/SublimeGit.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"blank locker",
+			"$_GET['league']",
+			"error",
+			"debug",
+			"vhost"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 1529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/viewModel.js",
+					"settings":
+					{
+						"buffer_size": 2351,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1904,
+								1904
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 319.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "api/create-user.php",
+					"settings":
+					{
+						"buffer_size": 1775,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								135,
+								135
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?php",
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "includes/db.inc",
+					"settings":
+					{
+						"buffer_size": 393,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								349,
+								349
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<?php",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "api/login.php",
+					"settings":
+					{
+						"buffer_size": 9,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.7,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.git-init":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

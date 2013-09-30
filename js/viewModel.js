@@ -26,9 +26,11 @@ jQuery(document).ready(function() {
             var self = this;
             self.screen = ko.observable(1);
             self.email = ko.observable();
-            self.password = ko.observable();
+            self.locker1 = ko.observable();
+            self.locker2 = ko.observable();
+            self.locker3 = ko.observable();
             self.league = ko.observable();
-            self.authKey = ko.observable(null);
+            self.gameData = ko.observable(null);
             self.errorMesg = ko.observable(null);
             self.auctionTeams = ko.observableArray();
 
@@ -36,16 +38,30 @@ jQuery(document).ready(function() {
 
             // Operations
             self.login = function() { // TODO: perform AJAX to actually authenticate
-                if (self.password() != '123') {
-                    self.errorMesg('Invalid password.');
-                } else {
-                    self.authKey('12345');
-                    self.auctionTeams.push(new AuctionTeam('Cowboys', '3-0', 'vs. Bengals', '2-1', 'Sunday'));
-                    self.auctionTeams.push(new AuctionTeam('Falcons', '2-1', '@ Lions', '2-1', 'Sunday'));
-                    self.auctionTeams.push(new AuctionTeam('Packers', '0-3', 'vs. 49ers', '1-2', 'Monday'));
-                    self.screen(2);
-                }
-                self.password(null);
+                $.post(
+                    '/api/login.php',
+                    {
+                        email: self.email(),
+                        locker: self.locker1() + '-' + self.locker2() + '-' + self.locker3(),
+                        league: self.league()
+                    },
+                    function(result) {
+                        if (result.status == 'success') {
+                            self.gameData(result.gameData);
+                            self.screen(self.gameData.screen);
+self.screen(2);
+                        } else {
+                            self.errorMesg('Invalid password.');        
+                        }
+                        self.locker1(null);
+                        self.locker2(null);
+                        self.locker3(null);
+                    }
+                );
+
+                self.locker1(null);
+                self.locker2(null);
+                self.locker3(null);
             }
             self.confirmTeams = function() {
                 self.screen(3);

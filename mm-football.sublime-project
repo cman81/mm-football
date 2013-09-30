@@ -1,0 +1,11 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Applications/MAMP/htdocs/mm-football"
+		}
+	],
+	"settings": {
+        //"xdebug": { "url": "http://mmf.local" }
+    }
+}
