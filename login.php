@@ -1,11 +1,11 @@
 <?php
 	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-	require_once($root . '/includes/db.inc');
+	require_once($root . '/db.inc');
 	header('Content-type: application/json');
 
 	$email = $_POST['email'];
-	$league_id = $_POST['league'];
-	$locker_combo = $_POST['locker']; // TODO: this is not very secure, can we pass the MD5 directly?
+	$league_id = $_POST['league_id'];
+	$password = $_POST['password']; // TODO: this is not very secure, can we pass the MD5 directly?
 
 // testing only
 /*
@@ -20,22 +20,22 @@ $locker_combo = $_GET['locker'];
 			'reason' => 'blank email',
 		)));
 	}
-	if ($league_name == '') {
+	if ($league_id == '') {
 		exit(json_encode(array(
 			'status' => 'error',
 			'reason' => 'blank league',
 		)));
 	}
-	if ($locker_combo == '') {
+	if ($password == '') {
 		exit(json_encode(array(
 			'status' => 'error',
-			'reason' => 'blank locker',
+			'reason' => 'password',
 		)));
 	}
 
 	// Build locker MD5
 		$salt = get_salt();
-		$locker_md5 = md5($locker_combo . $salt);
+		$locker_md5 = md5($password . $salt);
 
 	$qry = "
 		SELECT l.gamedata, ulm.turndata
