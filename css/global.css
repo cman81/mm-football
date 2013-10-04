@@ -22,6 +22,7 @@ h1 {
 	font-size: 13px;
 }
 .float-left { float: left; }
+.float-right { float: right; }
 .clear {
 	float: none;
 	clear: both;
@@ -29,7 +30,7 @@ h1 {
 input.form-text,
 input.form-button,
 select {
-	border: 1px solid #EEEEEE;
+	border: 1px solid #999;
     padding: 10px;
 }
 input.form-text { width: 238px; }
@@ -49,8 +50,10 @@ select { width: 260px; }
     font-size: 13px;
     margin-bottom: 10px;
 }
-.team-auction-page td { font-size: 13px; }
-.team-auction-page input.form-text { width: 15px; }
+.team-auction-page td,
+.stats td { font-size: 13px; }
+.team-auction-page input.form-text,
+.stats input.form-text { width: 15px; }
 .team,
 .opp { width: 105px; }
 .bid {
@@ -63,7 +66,8 @@ select { width: 260px; }
 	font-weight: bold;
 }
 .teams,
-.standings {
+.standings,
+.stats {
 	border: 1px solid #eee;
 	background-color: #fff;
 	margin-top: 3px;
@@ -100,4 +104,24 @@ select { width: 260px; }
     background-color: #FFDDDD;
     border: 1px solid #FFAAAA;
     color: #660000;	
+}
+.stats .check {
+	width: 100px;
+	text-align: center;
+}
+.stats .stat-name { width: 300px; }
+.stats .amount {
+	width: 40px;
+	padding: 5px;
+}
+.stats .disabled {
+	background-color: #999;
+	color: #fff;
+}
+.stats { margin-bottom: 15px; }
+.stats input.form-text { text-align: right; }
+.purchase-stats-page .remaining {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 2px;
 }
