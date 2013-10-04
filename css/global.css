@@ -6,6 +6,13 @@ h1 {
 	margin-bottom: 15px;
 	font-size: 18px;
 }
+a {
+	text-decoration: none;
+	color: #009900;
+}
+a:hover {
+	text-decoration: underline;	
+}
 .main-container {
 	width: 260px;
 	margin: 10px auto 0 auto;
@@ -17,7 +24,8 @@ h1 {
 	margin-bottom: 40px;
 	font-size: 25px;
 }
-.login-page .field {
+.login-page .field,
+.registration-page .field {
 	margin-bottom: 20px;
 	font-size: 13px;
 }
