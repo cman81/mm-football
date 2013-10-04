@@ -60,7 +60,7 @@ select { width: 260px; }
 	width: 30px;
 	padding-bottom: 3px;
 }
-.team-auction-page th {
+th {
 	text-align: left;
 	padding-bottom: 3px;
 	font-weight: bold;
@@ -125,3 +125,46 @@ select { width: 260px; }
     font-weight: bold;
     margin-top: 2px;
 }
+.purchase-stats-page .scoring-mode { margin-top: 5px; }
+.purchase-stats-page .scoring.description {
+	display: none;
+}
+.purchase-stats-page .spacer { margin-bottom: 25px; }
+.purchase-stats-page .scoring.description.selected {
+	display: block;
+	margin-left: 25px;
+	padding: 10px;
+	font-size: 13px;
+	background-color: #ffffcc;
+}
+.watch-football-page .main-container {
+	width: 620px;
+}
+.hidden { display: none; }
+.watch-football-page td,
+.watch-football-page th {
+	font-size: 13px;
+	padding: 5px;
+	text-align: right;
+}
+.watch-football-page td.label,
+.watch-football-page th.label { text-align: left; }
+.watch-football-page .actual { text-align: center; }
+.compare-scoring-methods .odd .yours { background-color: #99ff99; }
+.compare-scoring-methods .even .yours { background-color: #66ff66; }
+.compare-scoring-methods .odd { background-color: #99ccff; }
+.compare-scoring-methods .even { background-color: #6699ff; }
+.compare-scoring-methods .stat { width: 220px; }
+.compare-scoring-methods .actual,
+.compare-scoring-methods .standard,
+.compare-scoring-methods .aerial,
+.compare-scoring-methods .ground,
+.compare-scoring-methods .stingyd,
+.compare-scoring-methods .justwin,
+.compare-scoring-methods .yours { width: 55px; }
+.compare-scoring-methods .standard,
+.compare-scoring-methods .aerial,
+.compare-scoring-methods .ground,
+.compare-scoring-methods .stingyd,
+.compare-scoring-methods .justwin { color: #666;}
+.total-income th { font-size: 18px; }
