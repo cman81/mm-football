@@ -200,6 +200,35 @@
                 </table>
             </div>
             <!-- TODO: add a 'compare with other players' table -->
+            <h1>Final Results</h1>
+            <div class="final-scoring">
+                <table>
+                    <tr>
+                        <th class="player label">Player</th>
+                        <th class="before-salaries">Before</th>
+                        <th class="salaries">Salaries</th>
+                        <th class="after-salaries">After</th>
+                    </tr>
+                    <tr>
+                        <td class="player">1st Generic Team</td>
+                        <td class="before-salaries">$432</td>
+                        <td class="salaries">$304</td>
+                        <td class="after-salaries">$128</td>
+                    </tr>
+                    <tr>
+                        <td class="player">2nd Stuck in First</td>
+                        <td class="before-salaries">$389</td>
+                        <td class="salaries">$275</td>
+                        <td class="after-salaries">$114</td>
+                    </tr>
+                    <tr>
+                        <td class="player">3rd Your Favre-orite Team</td>
+                        <td class="before-salaries">$198</td>
+                        <td class="salaries">$140</td>
+                        <td class="after-salaries">$58</td>
+                    </tr>
+                </table>
+            </div>
         </form>
     </div>
 </body>

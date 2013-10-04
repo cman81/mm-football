@@ -150,6 +150,8 @@ th {
 .watch-football-page td.label,
 .watch-football-page th.label { text-align: left; }
 .watch-football-page .actual { text-align: center; }
+.compare-scoring-methods { margin-bottom: 50px; }
+.compare-scoring-methods table { border: 1px solid #999; }
 .compare-scoring-methods .odd .yours { background-color: #99ff99; }
 .compare-scoring-methods .even .yours { background-color: #66ff66; }
 .compare-scoring-methods .odd { background-color: #99ccff; }
@@ -167,4 +169,19 @@ th {
 .compare-scoring-methods .ground,
 .compare-scoring-methods .stingyd,
 .compare-scoring-methods .justwin { color: #666;}
-.total-income th { font-size: 18px; }
+.total-income th,
+.final-scoring th { font-size: 18px; }
+.final-scoring table {
+	border: 1px solid #f1f1f1;
+	background-color: #fff;
+}
+.final-scoring .player {
+	width: 254px;
+	text-align: left;
+}
+.final-scoring .before-salaries,
+.final-scoring .salaries,
+.final-scoring .after-salaries { width: 100px; }
+.final-scoring td.after-salaries { font-size: 18px; }
+.watch-football-page .final-scoring td,
+.watch-football-page .final-scoring th { padding: 8px; }
