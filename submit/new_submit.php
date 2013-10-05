@@ -9,6 +9,7 @@
 	$franchise = trim($_POST['franchise']);
 	$league_id = trim($_POST['league_id']);
 	$new_league = trim($_POST['new_league']);
+	$new_league_launch = trim($_POST['new_league_launch']);
 	$is_auth = FALSE;
 	$is_valid = TRUE;
 
@@ -81,10 +82,14 @@
 				mmf_goto('new.php');
 			}
 			// create the league
-				$qry = "
-					INSERT INTO leagues (name)
-					VALUES ('" . $new_league . "')
-				";
+				$qry = sprintf(
+					"
+						INSERT INTO leagues (name, launch_date)
+						VALUES ('%s', '%s')
+					",
+					mysql_real_escape_string($new_league),
+					mysql_real_escape_string($new_league_launch)
+				);
 				q($qry);
 				$league_id = $new_league;
 				$_SESSION['mmf_success'][] = 'New league "' . $league_id . '" created.';

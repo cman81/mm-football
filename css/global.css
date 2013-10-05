@@ -194,3 +194,6 @@ th {
 .final-scoring td.after-salaries { font-size: 18px; }
 .watch-football-page .final-scoring td,
 .watch-football-page .final-scoring th { padding: 8px; }
+
+.registration-page .new-league.field,
+.registration-page .new-league-launch.field { display: none; }

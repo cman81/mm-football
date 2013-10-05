@@ -17,6 +17,7 @@
     <!-- TODO: remove 'http:' from src when this is eventually hosted -->
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
+    <script src='js/global.js'></script>
     <!-- CSS Includes -->
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -50,6 +51,7 @@
             <div class="league field">
                 <div class="label">Which league would you like to join?</div>
                 <select name="league_id">
+                    <option value="">[Select a league]</option>
                     <?php foreach ($leagues as $value): ?>
                         <option value="<?= $value['name'] ?>"><?= $value['name'] ?></option>
                     <?php endforeach; ?>
@@ -59,6 +61,10 @@
             <div class="new-league field">
                 <div class="label">Enter the name of your new league.</div>
                 <input name="new_league" class="form-text" />
+            </div>
+            <div class="new-league-launch field">
+                <div class="label">Enter your launch date (YYYY-MM-DD hh:mm:ss).</div>
+                <input name="new_league_launch" class="form-text" />
             </div>
             <input type="submit" value="Register New User and/or League" class="form-button" />
         </form>

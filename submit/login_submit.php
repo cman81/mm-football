@@ -9,7 +9,7 @@
 	$league_id = trim($_POST['league_id']);
 
 	// logout as a precaution
-		unset($_SESSSION['auth']);
+		unset($_SESSION['auth']);
 
 	// basic validation
 		if ($email == '') {
@@ -41,6 +41,7 @@
 			'league' => $league_id,
 			'current_step' => 1,
 		);
+		$_SESSION['gamedata'] = json_decode($data[0]['gamedata']);
 
 	// analyze gamedata to determine what phase we go to
 
