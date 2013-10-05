@@ -4,7 +4,7 @@
 	require_once($root . '/db.inc');
 
 	$email = trim($_POST['email']);
-	$password_clear = trim($POST['password']);
+	$password_clear = trim($_POST['password']);
 	$password_md5 = md5($password_clear . get_salt());
 	$franchise = trim($_POST['franchise']);
 	$league_id = trim($_POST['league_id']);
@@ -16,6 +16,10 @@
 	// basic validation
 		if ($email == '') {
 			$_SESSION['mmf_error'][] = 'Email cannot be blank.';
+			$is_valid = FALSE;
+		}
+		if ($password_clear == '') {
+			$_SESSION['mmf_error'][] = 'Password cannot be blank.';
 			$is_valid = FALSE;
 		}
 		if ($franchise == '') {
@@ -107,12 +111,16 @@
 					mmf_goto('new.php');
 				}
 			// does this franchise name already exist?
-				$qry = "
-					SELECT franchise_name, league_id
-					FROM user_league_map
-					WHERE franchise_name = '" . $franchise . "'
-					AND league_id = '" . $league_id . "'
-				";
+				$qry = sprintf(
+					"
+						SELECT franchise_name, league_id
+						FROM user_league_map
+						WHERE franchise_name = '%s'
+						AND league_id = '%s'
+					",
+					mysql_real_escape_string($franchise),
+					mysql_real_escape_string($league_id)
+				);
 				$data = q($qry);
 				if (count($data) > 0) {
 					$_SESSION['mmf_error'][] = 'Someone already beat you to this franchise name.';
@@ -121,10 +129,16 @@
 		}
 		
 		// map this user to this league
-			$qry = "
-				INSERT INTO user_league_map (id, user_id, league_id)
-				VALUES ('" . uniqid() . "', '" . $email . "', '" . $league_id . "')
-			";
+			$qry = sprintf(
+				"
+					INSERT INTO user_league_map (id, user_id, league_id, franchise_name)
+					VALUES ('%s', '%s', '%s', '%s')
+				",
+				mysql_real_escape_string(uniqid()),
+				mysql_real_escape_string($email),
+				mysql_real_escape_string($league_id),
+				mysql_real_escape_string($franchise)
+			);
 			q($qry);
 			$_SESSION['mmf_success'][] = '"' . $franchise . '" has been added to league "' . $league_id . '."';
 

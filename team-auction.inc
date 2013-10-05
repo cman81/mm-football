@@ -2,32 +2,40 @@
 	session_start();
 
 	function load_balances() {
-		return array(
-			array(
-				'rank' => 1,
-				'email' => 'mmagpayo@gmail.com',
-				'team_name' => 'Pip\'s Revenge',
-				'balance' => 169
-			),
-			array(
-				'rank' => 2,
-				'email' => 'cmanalansan@gmail.com',
-				'team_name' => 'Mark\'s Yoda',
-				'balance' => 100
-			),
-			array(
-				'rank' => 3,
-				'email' => 'amanalansan@gmail.com',
-				'team_name' => 'What Would Alan Do?',
-				'balance' => 88
-			),
-			array(
-				'rank' => 4,
-				'email' => 'askpauld@gmail.com',
-				'team_name' => 'Ask Paul D',
-				'balance' => 43
-			),
-		);
+		$balances = $_SESSION['auth']['gamedata']['balances'];
+
+		if (count($balances) == 0) {
+			$balances = array();
+
+			$qry = sprintf(
+				"
+					SELECT user_id, franchise_name
+					FROM user_league_map
+					WHERE league_id = '%s'
+				",
+				mysql_real_escape_string($_SESSION['auth']['league'])
+			);
+			$data = q($qry);
+
+			foreach ($data as $value) {
+				$balances[] = array(
+					'email' => $value['user_id'],
+					'franchise' => $value['franchise_name'],
+					'balance' => 100,
+				);
+			}
+
+			// randomize initial ranking
+				shuffle($balances);
+				foreach ($balances as $key => $value) {
+					$balances[$key]['rank'] = $key + 1;
+				}
+
+				$_SESSION['auth']['gamedata']['balances'] = $balances;
+				set_gamedata();
+		}
+
+		return $balances;
 	}
 
 	function load_teams() {

@@ -42,11 +42,11 @@
                         <tr>
                             <?php if ($value['email'] != $_SESSION['auth']['email']): ?>
                                 <td class="rank"><?= ordinal($value['rank']) ?></td>
-                                <td class="name"><?= $value['team_name'] ?></td>
+                                <td class="name"><?= $value['franchise'] ?></td>
                                 <td class="balance">$<?= $value['balance'] ?></td>
                             <?php else: ?>
                                 <th class="rank"><?= ordinal($value['rank']) ?></th>
-                                <th class="name"><?= $value['team_name'] ?></th>
+                                <th class="name"><?= $value['franchise'] ?></th>
                                 <th class="balance">$<?= $value['balance'] ?></th>
                             <?php endif; ?>
                         </tr>

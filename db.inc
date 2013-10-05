@@ -72,3 +72,16 @@
 
 		return $abbreviation;
 	}
+
+	function set_gamedata() {
+		$qry = sprintf(
+			"
+				UPDATE leagues
+				SET gamedata = '%s'
+				WHERE name = '%s'
+			",
+			mysql_real_escape_string(json_encode($_SESSION['auth']['gamedata'])),
+			mysql_real_escape_string($_SESSION['auth']['league'])
+		);
+		q($qry);
+	}

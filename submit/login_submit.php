@@ -4,7 +4,7 @@
 	require_once($root . '/db.inc');
 
 	$email = trim($_POST['email']);
-	$password_clear = trim($POST['password']);
+	$password_clear = trim($_POST['password']);
 	$password_md5 = md5($password_clear . get_salt());
 	$league_id = trim($_POST['league_id']);
 
@@ -18,7 +18,7 @@
 		}
 
 	$qry = "
-		SELECT l.gamedata, ulm.turndata
+		SELECT l.gamedata, ulm.turndata, l.launch_date
 		FROM leagues l
 		INNER JOIN user_league_map ulm ON ulm.league_id = l.name
 		INNER JOIN users u ON u.email = ulm.user_id
@@ -34,6 +34,13 @@
 		mmf_goto('');
 	}
 
+	// has their league launched yet?
+		$launch_date = strtotime($data[0]['launch_date']);
+		if ($launch_date > time()) {
+			$_SESSION['mmf_error'][] = 'You league has not started yet. Check back on your launch date of ' . date('n/j/Y', $launch_date) . '!';
+			mmf_goto();
+		}
+
 	// initialize authenticated user details
 		$_SESSION['mmf_success'][] = 'Welcome to the league!';
 		$_SESSION['auth'] = array(
@@ -41,7 +48,7 @@
 			'league' => $league_id,
 			'current_step' => 1,
 		);
-		$_SESSION['gamedata'] = json_decode($data[0]['gamedata']);
+		$_SESSION['auth']['gamedata'] = json_decode($data[0]['gamedata'], TRUE);
 
 	// analyze gamedata to determine what phase we go to
 
