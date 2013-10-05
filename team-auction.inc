@@ -122,7 +122,7 @@
 					'name' => 'Colts'
 				),
 				array(
-					'abbr' => 'JAX',
+					'abbr' => 'JAC',
 					'name' => 'Jaguars'
 				),
 				array(
@@ -221,8 +221,31 @@
 		return $selected_team;
 	}
 
-	function validate_team($team) { // TODO: complete this stub
-		return TRUE;
+	function validate_team($team) {
+		// TODO: make this work for leagues that want to include Thursday and Monday games too
+		// TODO: make this work if we are running this function on a Sunday (get the following week)
+		// find the upcoming sunday games
+			$schedule = json_decode(file_get_contents('schedules/nfl_schedule_2013.json'), TRUE);
+			foreach ($schedule as $key => $value) {
+				if (strtotime($value['game_days'][($key > 14) ? 0 : 1]['date']) > time()) {
+					$key_to_use = $key;
+					break;
+				}
+			}
+
+		// are they playing that day?
+			$is_found = FALSE;
+			foreach ($schedule[$key_to_use]['game_days'][($key > 14) ? 0 : 1]['matches'] as $key => $value) {
+				if (strtoupper($value['away']['abbr']) == strtoupper($team['abbr'])) {
+					$is_found = TRUE;
+					break;
+				}
+				if (strtoupper($value['home']['abbr']) == strtoupper($team['abbr'])) {
+					$is_found = TRUE;
+					break;
+				}
+			}
+		return $is_found;
 	}
 
 	function build_game($team) { // TODO: complete this stub
