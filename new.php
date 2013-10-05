@@ -43,6 +43,10 @@
                 </div>
                 <input type="password" name="password" class="form-text" />
             </div>
+            <div class="franchise field">
+                <div class="label">Name your franchise.</div>
+                <input name="franchise" class="form-text" />
+            </div>
             <div class="league field">
                 <div class="label">Which league would you like to join?</div>
                 <select name="league_id">

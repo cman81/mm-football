@@ -6,6 +6,7 @@
 	$email = trim($_POST['email']);
 	$password_clear = trim($POST['password']);
 	$password_md5 = md5($password_clear . get_salt());
+	$franchise = trim($_POST['franchise']);
 	$league_id = trim($_POST['league_id']);
 	$new_league = trim($_POST['new_league']);
 	$is_auth = FALSE;
@@ -14,6 +15,10 @@
 	// basic validation
 		if ($email == '') {
 			$_SESSION['mmf_error'][] = 'Email cannot be blank.';
+			$is_valid = FALSE;
+		}
+		if ($franchise == '') {
+			$_SESSION['mmf_error'][] = 'Franchise cannot be blank.';
 			$is_valid = FALSE;
 		}
 		if ($league_id == '~NEW~') {
@@ -83,18 +88,31 @@
 				q($qry);
 				$league_id = $new_league;
 				$_SESSION['mmf_success'][] = 'New league "' . $league_id . '" created.';
-		} else { // does this user already exist in this league?
-			$qry = "
-				SELECT user_id, league_id
-				FROM user_league_map
-				WHERE user_id = '" . $email . "'
-				AND league_id = '" . $league_id . "'
-			";
-			$data = q($qry);
-			if (count($data) > 0) {
-				$_SESSION['mmf_error'][] = 'This user is already a member of this league.';
-				mmf_goto('new.php');
-			}
+		} else {
+			// does this user already exist in this league?
+				$qry = "
+					SELECT user_id, league_id
+					FROM user_league_map
+					WHERE user_id = '" . $email . "'
+					AND league_id = '" . $league_id . "'
+				";
+				$data = q($qry);
+				if (count($data) > 0) {
+					$_SESSION['mmf_error'][] = 'This user is already a member of this league.';
+					mmf_goto('new.php');
+				}
+			// does this franchise name already exist?
+				$qry = "
+					SELECT franchise_name, league_id
+					FROM user_league_map
+					WHERE franchise_name = '" . $franchise . "'
+					AND league_id = '" . $league_id . "'
+				";
+				$data = q($qry);
+				if (count($data) > 0) {
+					$_SESSION['mmf_error'][] = 'Someone already beat you to this franchise name.';
+					mmf_goto('new.php');
+				}
 		}
 		
 		// map this user to this league
@@ -103,7 +121,7 @@
 				VALUES ('" . uniqid() . "', '" . $email . "', '" . $league_id . "')
 			";
 			q($qry);
-			$_SESSION['mmf_success'][] = 'User "' . $email . '" has been added to league "' . $league_id . '".';
+			$_SESSION['mmf_success'][] = '"' . $franchise . '" has been added to league "' . $league_id . '."';
 
 	// send user to login page
 		$host = $_SERVER['HTTP_HOST'];

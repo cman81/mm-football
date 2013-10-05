@@ -2,8 +2,11 @@
     session_start();
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once($root . '/db.inc');
+    require_once($root . '/team-auction.inc');
 
     check_auth();
+    $balances = load_balances();
+    $teams = load_teams();
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,21 +38,19 @@
             <h2>Current standings:</h2>
             <div class="standings">
                 <table>
-                    <tr>
-                        <td class="rank">1st</td>
-                        <td class="name">Generic Team</td>
-                        <td class="balance">$169</td>
-                    </tr>
-                    <tr>
-                        <th class="rank">2nd</th>
-                        <th class="name">Stuck in First</th>
-                        <th class="balance">$88</th>
-                    </tr>
-                    <tr>
-                        <td class="rank">3rd</td>
-                        <td class="name">Your Favre-orite Team</td>
-                        <td class="balance">$43</td>
-                    </tr>
+                    <?php foreach ($balances as $value): ?>
+                        <tr>
+                            <?php if ($value['email'] != $_SESSION['auth']['email']): ?>
+                                <td class="rank"><?= ordinal($value['rank']) ?></td>
+                                <td class="name"><?= $value['team_name'] ?></td>
+                                <td class="balance">$<?= $value['balance'] ?></td>
+                            <?php else: ?>
+                                <th class="rank"><?= ordinal($value['rank']) ?></th>
+                                <th class="name"><?= $value['team_name'] ?></th>
+                                <th class="balance">$<?= $value['balance'] ?></th>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
             </div>
             <h2>This week's teams:</h2>
@@ -60,26 +61,13 @@
                         <th class="opp">Opponent</th>
                         <th class="bid">Bid</th>
                     </tr>
-                    <tr>
-                        <td class="team">(4-2) Falcons</td>
-                        <td class="opp">vs Bucs (2-4)</td>
-                        <td class="bid"><input name="bid-atl" class="form-text" /></td>
-                    </tr>
-                    <tr>
-                        <td class="team">(5-1) Patriots</td>
-                        <td class="opp">at Packers (6-0)</td>
-                        <td class="bid"><input name="bid-ne" class="form-text" /></td>
-                    </tr>
-                    <tr>
-                        <td class="team">(3-3) Cowboys</td>
-                        <td class="opp">vs Dolphins (2-4)</td>
-                        <td class="bid"><input name="bid-dal" class="form-text" /></td>
-                    </tr>
-                    <tr>
-                        <td class="team">(1-5) Jets</td>
-                        <td class="opp">at Chargers (3-3)</td>
-                        <td class="bid"><input name="bid-nyj" class="form-text" /></td>
-                    </tr>
+                    <?php foreach ($teams as $value): ?>
+                        <tr>                            
+                            <td class="team"><?= $value['team_record'] ?> <?= $value['team_name'] ?></td>
+                            <td class="opp"><?= ($value['is_team_home']) ? 'vs' : 'at' ?> <?= $value['opp_name'] ?> <?= $value['opp_record'] ?></td>
+                            <td class="bid"><input name="bid-<?= $value['team_abbr'] ?>" class="form-text" /></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
             </div>
             <input type="submit" value="Save" class="form-button" />
