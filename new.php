@@ -26,11 +26,12 @@
 <body class="registration-page">
     <div class="main-container">
         <form method="post" action="/submit/new_submit.php">
-            <h1>Registration</h1>
-            <div class="status error">
-                Invalid login.
+            <h1 class="float-left">Registration</h1>
+            <div class="go-home float-right">
+                <a href="/"><img src="/images/home-icon.png" /></a>
             </div>
-            <div class="description"></div>
+            <div class="clear">
+            <?= show_status() ?>
             <div class="username field">
                 <div class="label">Enter your email address.</div>
                 <input name="email" class="form-text" />

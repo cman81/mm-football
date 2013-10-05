@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    require_once($root . '/db.inc');
+
+    check_auth();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +21,12 @@
 <body class="team-auction-page">
     <div class="main-container">
         <form method="post" action="login.php">
-            <h1>Step 1: Pick a Team</h1>
-            <div class="status success">
-                Your bids have been saved.
+            <h1 class="float-left">Step 1: Pick a Team</h1>
+            <div class="go-home float-right">
+                <a href="/"><img src="/images/home-icon.png" /></a>
             </div>
-            <div class="status error">
-                No 2 bids can be the same. Try again.
-            </div>
+            <div class="clear">
+            <?= show_status() ?>
             <div class="description">
                 <p>Your money will grow based on which team you choose.</p>
                 <p>Will you go for the obvious favorite and pay a premium in the process?</p>

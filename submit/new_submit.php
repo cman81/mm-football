@@ -3,12 +3,31 @@
 	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
 	require_once($root . '/db.inc');
 
-	$email = $_POST['email'];
-	$password_clear = $POST['password'];
+	$email = trim($_POST['email']);
+	$password_clear = trim($POST['password']);
 	$password_md5 = md5($password_clear . get_salt());
-	$league_id = $_POST['league_id'];
-	$new_league = $_POST['new_league'];
+	$league_id = trim($_POST['league_id']);
+	$new_league = trim($_POST['new_league']);
 	$is_auth = FALSE;
+	$is_valid = TRUE;
+
+	// basic validation
+		if ($email == '') {
+			$_SESSION['mmf_error'][] = 'Email cannot be blank.';
+			$is_valid = FALSE;
+		}
+		if ($league_id == '~NEW~') {
+			if ($new_league == '') {
+				$_SESSION['mmf_error'][] = 'New league cannot be blank.';
+				$is_valid = FALSE;
+			} elseif ($new_league == '~NEW~') {
+				$_SESSION['mmf_error'][] = 'Invalid league name.';	
+				$is_valid = FALSE;
+			}
+		}
+		if (!$is_valid) {
+			mmf_goto('new.php');
+		}
 
 	// are we creating a new user or authenticating an existing user?
 		$qry = "
@@ -25,7 +44,7 @@
 					'" . $password_md5 . "',
 					'" . date('Y-m-d H:i:s') . "',
 					1,
-					'" . uniqid() . "'
+					'" . md5(rand() . uniqid()) . "'
 				)
 			";
 			q($qry);
@@ -39,10 +58,7 @@
 				$is_auth = TRUE;
 			} else {
 				$_SESSION['mmf_error'][] = 'User already exists and your password does not match.';
-				$host = $_SERVER['HTTP_HOST'];
-				$self = $_SERVER['PHP_SELF'];
-				header("Location: http://" . $host . $self);
-				exit();
+				mmf_goto('new.php');
 			}
 
 		}
@@ -57,10 +73,7 @@
 			$data = q($qry);
 			if (count($data) > 0) {
 				$_SESSION['mmf_error'][] = 'A league with this name already exists.';
-				$host = $_SERVER['HTTP_HOST'];
-				$self = $_SERVER['PHP_SELF'];
-				header("Location: http://" . $host . $self);
-				exit();
+				mmf_goto('new.php');
 			}
 			// create the league
 				$qry = "
@@ -78,12 +91,9 @@
 				AND league_id = '" . $league_id . "'
 			";
 			$data = q($qry);
-			if (count($data) > 1) {
+			if (count($data) > 0) {
 				$_SESSION['mmf_error'][] = 'This user is already a member of this league.';
-				$host = $_SERVER['HTTP_HOST'];
-				$self = $_SERVER['PHP_SELF'];
-				header("Location: http://" . $host . $self);
-				exit();
+				mmf_goto('new.php');
 			}
 		}
 		

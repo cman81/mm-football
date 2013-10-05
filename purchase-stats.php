@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    require_once($root . '/db.inc');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +20,7 @@
     <div class="main-container">
         <form method="post" action="login.php">
             <h1>Step 2: Purchase Stats</h1>
-            <div class="status success">
-                Your stats have been saved.
-            </div>
-            <div class="status error">
-                Your cannot spend more money than you have. Try again.
-            </div>
+            <?= show_status() ?>
             <div class="description">
                 <p>Now is the time to put your money where your mouth is.</p>
                 <p>Will your team dominate? If so, blow your entire bankroll!</p>

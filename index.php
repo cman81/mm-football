@@ -1,7 +1,13 @@
 <?php
+    session_start();
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once($root . '/db.inc');
 
+    // logout
+        if (isset($_SESSION['auth'])) {
+            $_SESSION['mmf_success'][] = 'You have been successfully logged out.';
+        }
+        unset($_SESSION['auth']);
     // get list of Leagues
         $qry = "
             SELECT name
@@ -26,11 +32,9 @@
 </head>
 <body class="login-page">
     <div class="main-container">
-        <form method="post" action="login.php">
+        <form method="post" action="/submit/login_submit.php">
             <h1>Money Maker Football</h1>
-            <div class="status error">
-                Invalid login.
-            </div>
+            <?= show_status() ?>
             <div class="username field">
                 <div class="label float-left">Player E-mail:</div>
                 <div class="new float-right"><a href="new.php">New Player?</a></div>
@@ -51,7 +55,7 @@
                 <div class="clear"></div>
                 <select name="league_id">
                     <?php foreach ($leagues as $value): ?>
-                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                        <option value="<?= $value['name'] ?>"><?= $value['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
                 <div class="clear"></div>

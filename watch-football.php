@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    require_once($root . '/db.inc');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +20,7 @@
     <div class="main-container">
         <form method="post" action="login.php">
             <h1>Step 3: Watch Football!</h1>
+            <?= show_status() ?>
             <div class="compare-scoring-methods">
                 <table>
                     <tr class="even">
